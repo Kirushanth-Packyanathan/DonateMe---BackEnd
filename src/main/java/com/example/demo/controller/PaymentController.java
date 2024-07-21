@@ -7,10 +7,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,7 +19,8 @@ public class PaymentController {
     @PostMapping()
     public String hostedCheckout(@RequestBody PaymentRequest paymentRequest) throws StripeException {
         Stripe.apiKey = STRIPE_API_KEY;
-        String clientBaseURL = System.getenv().get("CLIENT_BASE_URL");
+//        String clientBaseURL = System.getenv().get("CLIENT_BASE_URL");
+        String clientBaseURL = "http://localhost:3000/payment";
 
         // Find or create customer
         Customer customer = CustomerUtil.findOrCreateCustomer(paymentRequest.getEmail(), paymentRequest.getName());
